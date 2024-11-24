@@ -23,3 +23,11 @@ body {
   justify-content: center;
   background-color: #fdf2f8;
 }
+
+
+@media(max-width:450px){
+  body {
+    justify-content: start;
+    padding: 20px 0px;
+  }
+}

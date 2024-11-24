@@ -8,26 +8,29 @@ import Soundtrack from "../../assets/Soundtrack.mp3";
 const LayoutInvitation = () => {
   const [step, setStep] = useState(1);
 
+  // Función para manejar el clic
   const [audio] = useState(new Audio(Soundtrack));
+  const [isPlaying, setIsPlaying] = useState(false); 
 
   // Función para manejar el clic
   const handleClick = () => {
-    audio.play().catch((error) => {
-      console.error("Error reproduciendo el audio:", error);
-    });
+    if (!isPlaying) { 
+      audio.play().catch((error) => {
+        console.error("Error reproduciendo el audio:", error);
+      });
+      setIsPlaying(true);
+    }
   };
 
   useEffect(() => {
-    // Espera un clic del usuario para reproducir el audio
     document.body.addEventListener("click", handleClick);
 
-    // Cleanup: elimina el evento cuando el componente se desmonte
     return () => {
       document.body.removeEventListener("click", handleClick);
       audio.pause();
       audio.currentTime = 0;
     };
-  }, [audio]);
+  }, [audio, isPlaying]); 
 
   const renderStepContent = () => {
     switch (step) {
