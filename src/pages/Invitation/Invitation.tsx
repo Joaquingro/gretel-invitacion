@@ -43,7 +43,7 @@ const Invitation: React.FC = () => {
 
   const data = [
     { title: "CELEBRACIÓN", time: "A LAS 11:00" },
-    { title: "COMIDA", time: "A LAS 13:00" },
+    { title: "COMIDA", time: "A LAS 15:00" },
   ];
 
   useEffect(() => {
