@@ -36,13 +36,13 @@ const Invitation: React.FC = () => {
   }, []);
 
   const [currentText, setCurrentText] = useState({
-    title: "MISA",
+    title: "CELEBRACIÓN",
     time: "A LAS 11:00",
   });
   const [fadeClass, setFadeClass] = useState("opacity-100");
 
   const data = [
-    { title: "MISA", time: "A LAS 11:00" },
+    { title: "CELEBRACIÓN", time: "A LAS 11:00" },
     { title: "COMIDA", time: "A LAS 13:00" },
   ];
 
@@ -114,35 +114,35 @@ const Invitation: React.FC = () => {
       </section>
 
       {/* Cronómetro */}
-      <footer className="mt-8 ms:mt-0 text-center">
+      <footer className="mt-8 ms:mt-0 text-center w-full">
         <h2 className="text-xl font-semibold text-purple-700 mb-4">
           ¡El bautizo será pronto!
         </h2>
-        <div className="flex justify-center items-center gap-4">
+        <div className="flex justify-center items-center gap-4 w-full">
           {/* Días */}
-          <div className="flex flex-col items-center">
-            <span className="text-2xl font-bold text-purple-700 bg-purple-100 rounded-lg px-4 py-2 shadow">
+          <div className="flex flex-col items-center w-full">
+            <span className="text-lg ms:text-2xl font-bold text-purple-700 bg-purple-100 rounded-lg px-4 py-2 shadow w-full">
               {timeLeft.days}
             </span>
             <span className="text-sm text-gray-600 mt-2">DÍAS</span>
           </div>
           {/* Horas */}
-          <div className="flex flex-col items-center">
-            <span className="text-2xl font-bold text-purple-700 bg-purple-100 rounded-lg px-4 py-2 shadow">
+          <div className="flex flex-col items-center w-full">
+            <span className="text-lg ms:text-2xl font-bold text-purple-700 bg-purple-100 rounded-lg px-4 py-2 shadow w-full">
               {timeLeft.hours}
             </span>
             <span className="text-sm text-gray-600 mt-2">HORAS</span>
           </div>
           {/* Minutos */}
-          <div className="flex flex-col items-center">
-            <span className="text-2xl font-bold text-purple-700 bg-purple-100 rounded-lg px-4 py-2 shadow">
+          <div className="flex flex-col items-center w-full">
+            <span className="text-lg ms:text-2xl font-bold text-purple-700 bg-purple-100 rounded-lg px-4 py-2 shadow w-full">
               {timeLeft.minutes}
             </span>
             <span className="text-sm text-gray-600 mt-2">MINUTOS</span>
           </div>
           {/* Segundos */}
-          <div className="flex flex-col items-center">
-            <span className="text-2xl font-bold text-purple-700 bg-purple-100 rounded-lg px-4 py-2 shadow">
+          <div className="flex flex-col items-center w-full">
+            <span className="text-lg ms:text-2xl font-bold text-purple-700 bg-purple-100 rounded-lg px-4 py-2 shadow">
               {timeLeft.seconds}
             </span>
             <span className="text-sm text-gray-600 mt-2">SEGUNDOS</span>

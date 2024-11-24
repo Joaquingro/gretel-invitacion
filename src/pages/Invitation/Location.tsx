@@ -16,11 +16,11 @@ const Location = () => {
   });
 
   return (
-    <div className="w-full py-4 ms:py-0 flex flex-col justify-center pt-4 items-center h-full gap-10">
+    <div className="w-full py-8 ms:py-0 flex flex-col justify-center pt-4 items-center gap-10">
       <div className="max-w-[500px] w-full flex flex-col items-center text-center">
         <h1 className="text-4xl mb-2">Ubicaciones</h1>
         <p className="text-sm ms:text-lg text-rose-400">
-          La ceremonia se llevará a cabo en la Parroquia del Divino Redentor en
+          La ceremonia se llevará a cabo en la Catedral del Divino Redentor en
           San Juan Teotihuacan
         </p>
         <p className="text-sm mb-8 text-purple-700 mt-2 w-full text-center">

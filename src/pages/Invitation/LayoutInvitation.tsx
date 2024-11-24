@@ -67,28 +67,29 @@ const LayoutInvitation = () => {
       <audio ref={audioRef} src={Soundtrack}>
         Tu navegador no soporta el elemento de audio.
       </audio>
-      {Array.from({ length: 60 }).map((_, index) => {
-        // Aumentamos el número de flores
-        const randomColor = colors[Math.floor(Math.random() * colors.length)];
-        const randomSize = Math.random() * 2 + 1; // Tamaño entre 1x y 3x
-        const randomDuration = Math.random() * 3 + 4; // Duración de 4s a 7s
-        const randomDelay = Math.random() * 2;
-        const randomPosition = Math.random() * 100; // Posición inicial horizontal
+      <div className="absolute inset-0 z-0 overflow-hidden">
+        {Array.from({ length: 60 }).map((_, index) => {
+          const randomColor = colors[Math.floor(Math.random() * colors.length)];
+          const randomSize = Math.random() * 2 + 1; // Tamaño entre 1x y 3x
+          const randomDuration = Math.random() * 3 + 4; // Duración de 4s a 7s
+          const randomDelay = Math.random() * 2; // Retraso inicial
+          const randomPosition = Math.random() * 100; // Posición inicial horizontal
 
-        return (
-          <PiFlowerFill
-            key={index}
-            className={`absolute ${randomColor} animate-flower z-0`}
-            style={{
-              left: `${randomPosition}%`,
-              top: `0`, // Asegura que empiecen desde arriba
-              fontSize: `${randomSize}rem`,
-              animationDuration: `${randomDuration + 4}s`, // Duración total de la caída
-              animationDelay: `${randomDelay}s`, // Retraso para un inicio escalonado
-            }}
-          />
-        );
-      })}
+          return (
+            <PiFlowerFill
+              key={index}
+              className={`absolute ${randomColor} animate-flower`}
+              style={{
+                left: `${randomPosition}%`,
+                top: `-${randomSize}rem`, // Inicia fuera de la pantalla
+                fontSize: `${randomSize}rem`,
+                animationDuration: `${randomDuration + 4}s`,
+                animationDelay: `${randomDelay}s`,
+              }}
+            />
+          );
+        })}
+      </div>
 
       <motion.div
         key={step}

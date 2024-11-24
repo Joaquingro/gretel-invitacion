@@ -13,40 +13,49 @@ h2 {
   font-family: "Parisienne", serif;
 }
 
+html,
 body {
-  width: 100vw;
-  display: flex;
-  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  width: 100%;
   overflow-x: hidden;
-  justify-content: center;
-  background-color: #fdf2f8;
+  box-sizing: border-box;
 }
 
+body {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #fdf2f8;
+  min-height: 100vh;
+}
 
-@media(max-width:450px){
+@media (max-width: 450px) {
   body {
     justify-content: start;
     padding: 20px 0px;
   }
 }
 
-
 @keyframes flowerFall {
   0% {
-    transform: translateY(-10px); /* Empezar desde arriba */
-    opacity: 0; /* Comenzar invisible */
+    transform: translateY(-10px);
+    opacity: 0;
   }
   50% {
-    opacity: 1; /* Hacerse visible a la mitad de la caída */
+    opacity: 1;
   }
   100% {
-    transform: translateY(100vh); /* Caer hasta el fondo de la pantalla */
-    opacity: 1; /* Mantenerse visible al final */
+    transform: translateY(100vh);
+    opacity: 1;
   }
 }
 
 .animate-flower {
-  animation: flowerFall 6s linear infinite; /* Hacemos que la animación dure más tiempo y sea continua */
-  opacity: 0;  /* Asegura que empiecen invisibles */
-  animation-fill-mode: forwards; /* Asegura que la animación se mantenga */
+  animation: flowerFall 6s linear infinite;
+  opacity: 0;
+  animation-fill-mode: forwards;
+  will-change: transform, opacity;
 }
