@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Invitation from "./Invitation";
 import Location from "./Location";
 import Home from "./Home";
@@ -16,6 +16,23 @@ const LayoutInvitation = () => {
     "text-yellow-500",
     "text-blue-500",
   ];
+
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  useEffect(() => {
+    const handlePlayAudio = () => {
+      if (audioRef.current) {
+        audioRef.current.play();
+        document.removeEventListener("click", handlePlayAudio);
+      }
+    };
+
+    document.addEventListener("click", handlePlayAudio);
+
+    return () => {
+      document.removeEventListener("click", handlePlayAudio);
+    };
+  }, []);
 
   const renderStepContent = () => {
     switch (step) {
@@ -47,14 +64,15 @@ const LayoutInvitation = () => {
 
   return (
     <div className="flex w-full items-center justify-center px-4 py-5">
-      <audio src={Soundtrack} autoPlay loop>
+      <audio ref={audioRef} src={Soundtrack}>
         Tu navegador no soporta el elemento de audio.
       </audio>
-      {Array.from({ length: 20 }).map((_, index) => {
+      {Array.from({ length: 60 }).map((_, index) => {
+        // Aumentamos el número de flores
         const randomColor = colors[Math.floor(Math.random() * colors.length)];
         const randomSize = Math.random() * 2 + 1; // Tamaño entre 1x y 3x
         const randomDuration = Math.random() * 3 + 4; // Duración de 4s a 7s
-        const randomDelay = Math.random() * 2; // Retraso de 0s a 2s
+        const randomDelay = Math.random() * 2;
         const randomPosition = Math.random() * 100; // Posición inicial horizontal
 
         return (
@@ -63,14 +81,15 @@ const LayoutInvitation = () => {
             className={`absolute ${randomColor} animate-flower z-0`}
             style={{
               left: `${randomPosition}%`,
-              top: `0`,
+              top: `0`, // Asegura que empiecen desde arriba
               fontSize: `${randomSize}rem`,
-              animationDuration: `${randomDuration}s`,
-              animationDelay: `${randomDelay}s`,
+              animationDuration: `${randomDuration + 4}s`, // Duración total de la caída
+              animationDelay: `${randomDelay}s`, // Retraso para un inicio escalonado
             }}
           />
         );
       })}
+
       <motion.div
         key={step}
         initial={{ opacity: 0, x: "100%" }}
@@ -80,16 +99,20 @@ const LayoutInvitation = () => {
           opacity: { duration: 0.3 },
           x: { type: "tween", ease: "easeInOut", duration: 0.5 },
         }}
-        className="relative z-10"
+        className="relative z-10 flex w-full justify-center "
       >
         <div className="py-8 flex flex-col justify-between px-5 ms:px-10 w-full h-auto ms:h-[900px] bg-white rounded-3xl shadow-lg max-w-[550px]">
           <div className="flex w-full items-center gap-2 justify-between">
-            <button
-              className="flex gap-2 items-center text-xs md:text-[15px] font-light bg-rose-300 p-2 text-white rounded-lg hover:bg-rose-400"
-              onClick={prevStep}
-            >
-              <IoIosArrowDropleft /> Volver atrás
-            </button>
+            {step != 1 ? (
+              <button
+                className="flex gap-2 items-center text-xs md:text-[15px] font-light bg-rose-300 p-2 text-white rounded-lg hover:bg-rose-400"
+                onClick={prevStep}
+              >
+                <IoIosArrowDropleft /> Volver atrás
+              </button>
+            ) : (
+              <GiFlowers size={45} className="text-rose-400" />
+            )}
             <GiFlowers size={45} className="text-purple-700" />
           </div>
 

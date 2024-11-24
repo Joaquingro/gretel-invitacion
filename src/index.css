@@ -31,19 +31,22 @@ body {
 }
 
 
-@keyframes fall {
+@keyframes flowerFall {
   0% {
-    transform: translateY(-100%) rotate(0deg);
-    opacity: 1;
+    transform: translateY(-10px); /* Empezar desde arriba */
+    opacity: 0; /* Comenzar invisible */
+  }
+  50% {
+    opacity: 1; /* Hacerse visible a la mitad de la caída */
   }
   100% {
-    transform: translateY(100vh) rotate(360deg);
-    opacity: 0;
+    transform: translateY(100vh); /* Caer hasta el fondo de la pantalla */
+    opacity: 1; /* Mantenerse visible al final */
   }
 }
 
 .animate-flower {
-  animation-name: fall;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
+  animation: flowerFall 6s linear infinite; /* Hacemos que la animación dure más tiempo y sea continua */
+  opacity: 0;  /* Asegura que empiecen invisibles */
+  animation-fill-mode: forwards; /* Asegura que la animación se mantenga */
 }
