@@ -8,18 +8,26 @@ import Soundtrack from "../../assets/Soundtrack.mp3";
 const LayoutInvitation = () => {
   const [step, setStep] = useState(1);
 
-  useEffect(() => {
-    const audio = new Audio(Soundtrack);
+  const [audio] = useState(new Audio(Soundtrack));
+
+  // Función para manejar el clic
+  const handleClick = () => {
     audio.play().catch((error) => {
       console.error("Error reproduciendo el audio:", error);
     });
+  };
 
+  useEffect(() => {
+    // Espera un clic del usuario para reproducir el audio
+    document.body.addEventListener("click", handleClick);
+
+    // Cleanup: elimina el evento cuando el componente se desmonte
     return () => {
+      document.body.removeEventListener("click", handleClick);
       audio.pause();
       audio.currentTime = 0;
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [Soundtrack]);
+  }, [audio]);
 
   const renderStepContent = () => {
     switch (step) {
@@ -51,6 +59,9 @@ const LayoutInvitation = () => {
 
   return (
     <div className="flex w-full items-center justify-center h-full px-4 ">
+      <audio src={Soundtrack} autoPlay loop>
+        Tu navegador no soporta el elemento de audio.
+      </audio>
       <motion.div
         key={step}
         initial={{ opacity: 0, x: "100%" }}

@@ -1,12 +1,19 @@
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
-import { LatLngExpression } from "leaflet";
+import L, { LatLngExpression } from "leaflet";
 import "leaflet/dist/leaflet.css";
-import { FaChurch } from "react-icons/fa";
+import { FaChurch, FaMapMarkerAlt } from "react-icons/fa";
 import { BiParty } from "react-icons/bi";
+
 
 const Location = () => {
   const position: LatLngExpression = [19.687421, -98.857759];
   const positionChurch: LatLngExpression = [19.68225, -98.86989];
+  const customIcon = new L.Icon({
+    iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png', // URL del ícono predeterminado
+    iconSize: [25, 41], // Tamaño del ícono
+    iconAnchor: [12, 41], // Ancla del ícono
+    popupAnchor: [0, -41], // Ubicación del popup
+  });
 
 
   return (
@@ -34,7 +41,7 @@ const Location = () => {
         >
           <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
           {/* Agregamos un marcador en la ubicación */}
-          <Marker position={positionChurch}>
+          <Marker position={positionChurch}  icon={customIcon}>
             <Popup >
               <p >¡Aquí es donde será la misa! 🙏</p>
               <a
@@ -64,7 +71,7 @@ const Location = () => {
         >
           <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
           {/* Agregamos un marcador en la ubicación */}
-          <Marker position={position}>
+          <Marker position={position}  icon={customIcon}>
             <Popup>
               <p>¡Aquí es donde es la fiesta! 🎉</p>
               <a
