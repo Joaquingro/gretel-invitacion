@@ -1,21 +1,65 @@
 import React, { useState, useEffect } from "react";
+import { GiPeaceDove } from "react-icons/gi";
 
 const Invitation: React.FC = () => {
-  const [daysLeft, setDaysLeft] = useState<number | null>(null); // Permitir null para el estado inicial
+  const [timeLeft, setTimeLeft] = useState({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+  });
 
   useEffect(() => {
     const eventDate = new Date("2024-12-14T11:00:00");
 
-    const updateDaysLeft = () => {
+    const updateTimer = () => {
       const now = new Date();
       const difference = eventDate.getTime() - now.getTime();
-      setDaysLeft(Math.ceil(difference / (1000 * 60 * 60 * 24))); // Convertir milisegundos a días
+
+      if (difference > 0) {
+        const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
+        const minutes = Math.floor((difference / (1000 * 60)) % 60);
+        const seconds = Math.floor((difference / 1000) % 60);
+
+        setTimeLeft({ days, hours, minutes, seconds });
+      } else {
+        // Evento pasado, limpiar el cronómetro
+        setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+      }
     };
 
-    updateDaysLeft(); // Calcular en la carga inicial
-    const interval = setInterval(updateDaysLeft, 1000); // Actualizar cada segundo
+    const interval = setInterval(updateTimer, 1000);
+    updateTimer();
 
-    return () => clearInterval(interval); // Limpiar el intervalo al desmontar
+    return () => clearInterval(interval);
+  }, []);
+
+  const [currentText, setCurrentText] = useState({
+    title: "MISA",
+    time: "A LAS 11:00",
+  });
+  const [fadeClass, setFadeClass] = useState("opacity-100");
+
+  const data = [
+    { title: "MISA", time: "A LAS 11:00" },
+    { title: "COMIDA", time: "A LAS 13:00" },
+  ];
+
+  useEffect(() => {
+    let index = 0;
+
+    const interval = setInterval(() => {
+      setFadeClass("opacity-0");
+
+      setTimeout(() => {
+        index = (index + 1) % data.length;
+        setCurrentText(data[index]);
+        setFadeClass("opacity-100");
+      }, 500);
+    }, 3000);
+
+    return () => clearInterval(interval);
   }, []);
 
   return (
@@ -28,16 +72,25 @@ const Invitation: React.FC = () => {
 
       {/* Detalles */}
       <section className="mt-5 flex items-center w-full text-lg ms:text-2xl text-rose-400 font-light">
-        <p className="border-t border-purple-700 border-b 0 py-3 font-light max-w-[300px] w-full">
+        <p className="border-t border-purple-700 border-b 0 py-2 ms:py-3 font-light max-w-[300px] w-full">
           SÁBADO
         </p>
         <span className="px-4">
           <p className="mt-[-20px]">DICIEMBRE</p>
           <p className="text-4xl">14</p>
         </span>
-        <p className="border-t border-purple-700 border-b py-3 max-w-[300px] w-full">
-          A LAS 11:00
-        </p>
+        <div className="max-w-[300px] w-full">
+          <p
+            className={`text-sm ms:text-lg text-black mt-[-25px] transition-opacity duration-500 ${fadeClass}`}
+          >
+            {currentText.title}
+          </p>
+          <p
+            className={`border-t border-purple-700 border-b py-2 ms:py-3 transition-opacity duration-500 ${fadeClass}`}
+          >
+            {currentText.time}
+          </p>
+        </div>
       </section>
 
       {/* Familia */}
@@ -50,7 +103,7 @@ const Invitation: React.FC = () => {
           <p className="text-[16px]">Ivan Mauricio Guerrero García</p>
         </div>
         <span className="p-5 ms:p-10">
-          <i className="fa-solid fa-dove text-5xl text-rose-400"></i>
+          <GiPeaceDove size={55} className="text-rose-400" />
         </span>
         <div>
           <p className="text-lg ms:text-xl py-0 ms:py-3 font-light max-w-[300px] w-full text-purple-700">
@@ -61,15 +114,41 @@ const Invitation: React.FC = () => {
       </section>
 
       {/* Cronómetro */}
-      <footer className="mt-8">
-        {daysLeft !== null ? (
-          <h2 className="text-xl font-semibold text-purple-700">
-            Faltan <strong>{daysLeft}</strong> días para el bautizo
-          </h2>
-        ) : (
-          <p className="text-purple-600">Cargando días restantes...</p>
-        )}
-        <p className="text-sm ms:text-lg mt-2">
+      <footer className="mt-8 ms:mt-0 text-center">
+        <h2 className="text-xl font-semibold text-purple-700 mb-4">
+          ¡El bautizo será pronto!
+        </h2>
+        <div className="flex justify-center items-center gap-4">
+          {/* Días */}
+          <div className="flex flex-col items-center">
+            <span className="text-2xl font-bold text-purple-700 bg-purple-100 rounded-lg px-4 py-2 shadow">
+              {timeLeft.days}
+            </span>
+            <span className="text-sm text-gray-600 mt-2">DÍAS</span>
+          </div>
+          {/* Horas */}
+          <div className="flex flex-col items-center">
+            <span className="text-2xl font-bold text-purple-700 bg-purple-100 rounded-lg px-4 py-2 shadow">
+              {timeLeft.hours}
+            </span>
+            <span className="text-sm text-gray-600 mt-2">HORAS</span>
+          </div>
+          {/* Minutos */}
+          <div className="flex flex-col items-center">
+            <span className="text-2xl font-bold text-purple-700 bg-purple-100 rounded-lg px-4 py-2 shadow">
+              {timeLeft.minutes}
+            </span>
+            <span className="text-sm text-gray-600 mt-2">MINUTOS</span>
+          </div>
+          {/* Segundos */}
+          <div className="flex flex-col items-center">
+            <span className="text-2xl font-bold text-purple-700 bg-purple-100 rounded-lg px-4 py-2 shadow">
+              {timeLeft.seconds}
+            </span>
+            <span className="text-sm text-gray-600 mt-2">SEGUNDOS</span>
+          </div>
+        </div>
+        <p className="text-sm md:text-lg mt-6 text-gray-700">
           Esperamos contar con tu valiosa presencia. ¡Será un día inolvidable!
         </p>
       </footer>
