@@ -1,0 +1,25 @@
+@import url("https://fonts.googleapis.com/css2?family=Parkinsans:wght@400;500;600;700&family=Parisienne:wght@400;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: Parkinsans, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  height: 100%;
+}
+
+h1,
+h2 {
+  font-family: "Parisienne", serif;
+}
+
+body {
+  width: 100vw;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  justify-content: center;
+  background-color: #fdf2f8;
+}
