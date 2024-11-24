@@ -1,7 +1,7 @@
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import L, { LatLngExpression } from "leaflet";
 import "leaflet/dist/leaflet.css";
-import { FaChurch, FaMapMarkerAlt } from "react-icons/fa";
+import { FaChurch } from "react-icons/fa";
 import { BiParty } from "react-icons/bi";
 
 
