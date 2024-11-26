@@ -42,7 +42,7 @@ const Location = () => {
           {/* Agregamos un marcador en la ubicación */}
           <Marker position={positionChurch} icon={customIcon}>
             <Popup>
-              <p>¡Aquí es donde será la misa! 🙏</p>
+              <p>¡Aquí es donde será la Eucaristía! 🙏</p>
               <a
                 href={`https://www.google.com/maps?q=${positionChurch[0]},${positionChurch[1]}`}
                 target="_blank"
@@ -72,7 +72,7 @@ const Location = () => {
           {/* Agregamos un marcador en la ubicación */}
           <Marker position={position} icon={customIcon}>
             <Popup>
-              <p>¡Aquí es donde es la fiesta! 🎉</p>
+              <p>¡Aquí es donde será la fiesta! 🎉</p>
               <a
                 href={`https://www.google.com/maps?q=${position[0]},${position[1]}`}
                 target="_blank"

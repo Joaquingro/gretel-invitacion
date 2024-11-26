@@ -36,14 +36,14 @@ const Invitation: React.FC = () => {
   }, []);
 
   const [currentText, setCurrentText] = useState({
-    title: "CELEBRACIÓN",
+    title: "EUCARISTÍA",
     time: "A LAS 11:00",
   });
   const [fadeClass, setFadeClass] = useState("opacity-100");
 
   const data = [
-    { title: "CELEBRACIÓN", time: "A LAS 11:00" },
-    { title: "COMIDA", time: "A LAS 15:00" },
+    { title: "EUCARISTÍA", time: "A LAS 11:00" },
+    { title: "BANQUETE", time: "A LAS 15:00" },
   ];
 
   useEffect(() => {
